@@ -1,14 +1,39 @@
 // 1. Імпортуємо функцію useState
 import { useState } from "react";
+import Cafeinfo from "./CafeInfo"
+import css from "./App.module.css"
+import type { VoteType, Votes } from "../types/votes"
+import VoteOptions from "./VoteOptions"
+import VoteStats from "./VoteStats"
+import Notification from "./Notification"
 
 export default function App() {
-	// 2. Оголошуємо стан clicks
-  const [clicks, setClicks] = useState(0);
+	
+  
+  let [votes, setVotes] = useState <Votes> ({ good: 0, neutral: 0, bad: 0 });
+  const totalVotes = votes.bad + votes.good + votes.neutral;
+  const positiveRate = totalVotes
+    ? Math.round((votes.good / totalVotes) * 100)
+    : 0
 
-  const handleClick = () => {
-	  // 3. Використовуємо setClicks для зміни стану clicks
-    setClicks(clicks + 1);
-  };
 
-  return <button onClick={handleClick}>Current: {clicks}</button>;
+ const handleVote = (type: VoteType) => {
+  setVotes(prev => ({
+    ...prev,
+    [type]: prev[type] + 1,
+  }));
+};
+
+  const resetVotes = () => {
+    setVotes({good: 0, neutral: 0, bad: 0 })
+  }
+
+  console.log(votes);
+
+  return <div className={css.app}>
+    <Cafeinfo />
+    <VoteOptions onVote={handleVote} onReset={resetVotes} canReset={totalVotes!=0} />
+    {totalVotes> 0 ? (<VoteStats votes={votes} totalVotes={totalVotes} positiveRate={positiveRate} />):
+    (<Notification />)}
+  </div>;
 }
