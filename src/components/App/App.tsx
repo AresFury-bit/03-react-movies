@@ -1,11 +1,11 @@
 // 1. Імпортуємо функцію useState
 import { useState } from "react";
-import Cafeinfo from "./CafeInfo"
+import Cafeinfo from "../CafeInfo/CafeInfo"
 import css from "./App.module.css"
-import type { VoteType, Votes } from "../types/votes"
-import VoteOptions from "./VoteOptions"
-import VoteStats from "./VoteStats"
-import Notification from "./Notification"
+import type { VoteType, Votes } from "../../types/votes"
+import VoteOptions from "../VoteOptions/VoteOptions"
+import VoteStats from "../VoteStats/VoteStats"
+import Notification from "../Notification/Notification"
 
 export default function App() {
 	
