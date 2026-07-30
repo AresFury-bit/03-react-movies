@@ -1,6 +1,6 @@
 // 1. Імпортуємо функцію useState
 import { useState } from "react";
-import Cafeinfo from "../CafeInfo/CafeInfo"
+import CafeInfo from "../CafeInfo/CafeInfo"
 import css from "./App.module.css"
 import type { VoteType, Votes } from "../../types/votes"
 import VoteOptions from "../VoteOptions/VoteOptions"
@@ -31,7 +31,7 @@ export default function App() {
   console.log(votes);
 
   return <div className={css.app}>
-    <Cafeinfo />
+    <CafeInfo />
     <VoteOptions onVote={handleVote} onReset={resetVotes} canReset={totalVotes!=0} />
     {totalVotes> 0 ? (<VoteStats votes={votes} totalVotes={totalVotes} positiveRate={positiveRate} />):
     (<Notification />)}
