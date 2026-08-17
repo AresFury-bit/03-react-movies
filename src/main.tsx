@@ -1,15 +1,22 @@
 // src/main.tsx
 
-import React from "react";
-import ReactDOM from "react-dom/client";
+
 import App from "./components/App/App";
-// Нормалізація стилів
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 import "modern-normalize";
-// Глобальні стилі (додатково)
 import "./global.css";
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
     <App />
-  </React.StrictMode>
+  </StrictMode>
 );
+
+
+
+
+
+
+
+
