@@ -13,37 +13,35 @@ import MovieModal from "../MovieModal/MovieModal";
 export default function App() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [movie, setMovie] = useState<Movie | null>(null);
-  const [isloadet, setIsLoader] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  const [isOpenModal, setIsOpenModal] = useState(false);
   // const [selectedMovie, setSelectedMovie] = useState(false);
 
   const handleSubmit = async (topic: string) => {
     try {
       setMovies([]);
-      setIsLoader(true);
+      setIsLoading(true);
+      setIsError(false);
       // debugger;
       const data = await fetchMovies(topic);
       setMovies(data);
-      if (movies.length === 0) {
+      if (data.length === 0) {
         toast.error("No movies found for your request.");
       }
     } catch {
       toast.error("This didn't work.");
       setIsError(true);
     } finally {
-      setIsLoader(false);
+      setIsLoading(false);
     }
   };
 
   const handleSelectedMovie = (movie: Movie) => {
     setMovie(movie);
-    setIsOpenModal(true);
   };
 
   const closeModal = () => {
-    setIsOpenModal(false);
     setMovie(null);
   };
 
@@ -51,12 +49,10 @@ export default function App() {
     <>
       <SearchBar onSubmit={handleSubmit} />
       <Toaster position="top-center" reverseOrder={false} />
-      {isloadet && <Loader />}
+      {isLoading && <Loader />}
       <MovieGrid movies={movies} onSelect={handleSelectedMovie} />
       {isError && <ErrorMessage />}
-      {isOpenModal && movie && (
-        <MovieModal onClose={closeModal} movie={movie} />
-      )}
+      {movie && <MovieModal onClose={closeModal} movie={movie} />}
     </>
   );
 }
